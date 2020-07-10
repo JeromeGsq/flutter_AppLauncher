@@ -16,15 +16,14 @@ class _$HomeStateTearOff {
     return const HomeStateInitial();
   }
 
-  HomeStateSuccess success({@required List<Post> posts, bool hasReachedMax}) {
-    return HomeStateSuccess(
-      posts: posts,
-      hasReachedMax: hasReachedMax,
-    );
-  }
-
   HomeStateFailure failure() {
     return const HomeStateFailure();
+  }
+
+  HomeStateSuccess success({@required List<ApplicationWithIcon> applications}) {
+    return HomeStateSuccess(
+      applications: applications,
+    );
   }
 }
 
@@ -35,27 +34,27 @@ mixin _$HomeState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required Result success(List<Post> posts, bool hasReachedMax),
     @required Result failure(),
+    @required Result success(List<ApplicationWithIcon> applications),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result success(List<Post> posts, bool hasReachedMax),
     Result failure(),
+    Result success(List<ApplicationWithIcon> applications),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(HomeStateInitial value),
-    @required Result success(HomeStateSuccess value),
     @required Result failure(HomeStateFailure value),
+    @required Result success(HomeStateSuccess value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(HomeStateInitial value),
-    Result success(HomeStateSuccess value),
     Result failure(HomeStateFailure value),
+    Result success(HomeStateSuccess value),
     @required Result orElse(),
   });
 }
@@ -117,12 +116,12 @@ class _$HomeStateInitial
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required Result success(List<Post> posts, bool hasReachedMax),
     @required Result failure(),
+    @required Result success(List<ApplicationWithIcon> applications),
   }) {
     assert(initial != null);
-    assert(success != null);
     assert(failure != null);
+    assert(success != null);
     return initial();
   }
 
@@ -130,8 +129,8 @@ class _$HomeStateInitial
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result success(List<Post> posts, bool hasReachedMax),
     Result failure(),
+    Result success(List<ApplicationWithIcon> applications),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -145,12 +144,12 @@ class _$HomeStateInitial
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(HomeStateInitial value),
-    @required Result success(HomeStateSuccess value),
     @required Result failure(HomeStateFailure value),
+    @required Result success(HomeStateSuccess value),
   }) {
     assert(initial != null);
-    assert(success != null);
     assert(failure != null);
+    assert(success != null);
     return initial(this);
   }
 
@@ -158,8 +157,8 @@ class _$HomeStateInitial
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(HomeStateInitial value),
-    Result success(HomeStateSuccess value),
     Result failure(HomeStateFailure value),
+    Result success(HomeStateSuccess value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -172,148 +171,6 @@ class _$HomeStateInitial
 
 abstract class HomeStateInitial implements HomeState {
   const factory HomeStateInitial() = _$HomeStateInitial;
-}
-
-abstract class $HomeStateSuccessCopyWith<$Res> {
-  factory $HomeStateSuccessCopyWith(
-          HomeStateSuccess value, $Res Function(HomeStateSuccess) then) =
-      _$HomeStateSuccessCopyWithImpl<$Res>;
-  $Res call({List<Post> posts, bool hasReachedMax});
-}
-
-class _$HomeStateSuccessCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
-    implements $HomeStateSuccessCopyWith<$Res> {
-  _$HomeStateSuccessCopyWithImpl(
-      HomeStateSuccess _value, $Res Function(HomeStateSuccess) _then)
-      : super(_value, (v) => _then(v as HomeStateSuccess));
-
-  @override
-  HomeStateSuccess get _value => super._value as HomeStateSuccess;
-
-  @override
-  $Res call({
-    Object posts = freezed,
-    Object hasReachedMax = freezed,
-  }) {
-    return _then(HomeStateSuccess(
-      posts: posts == freezed ? _value.posts : posts as List<Post>,
-      hasReachedMax: hasReachedMax == freezed
-          ? _value.hasReachedMax
-          : hasReachedMax as bool,
-    ));
-  }
-}
-
-class _$HomeStateSuccess
-    with DiagnosticableTreeMixin
-    implements HomeStateSuccess {
-  const _$HomeStateSuccess({@required this.posts, this.hasReachedMax})
-      : assert(posts != null);
-
-  @override
-  final List<Post> posts;
-  @override
-  final bool hasReachedMax;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState.success(posts: $posts, hasReachedMax: $hasReachedMax)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'HomeState.success'))
-      ..add(DiagnosticsProperty('posts', posts))
-      ..add(DiagnosticsProperty('hasReachedMax', hasReachedMax));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is HomeStateSuccess &&
-            (identical(other.posts, posts) ||
-                const DeepCollectionEquality().equals(other.posts, posts)) &&
-            (identical(other.hasReachedMax, hasReachedMax) ||
-                const DeepCollectionEquality()
-                    .equals(other.hasReachedMax, hasReachedMax)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(posts) ^
-      const DeepCollectionEquality().hash(hasReachedMax);
-
-  @override
-  $HomeStateSuccessCopyWith<HomeStateSuccess> get copyWith =>
-      _$HomeStateSuccessCopyWithImpl<HomeStateSuccess>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result initial(),
-    @required Result success(List<Post> posts, bool hasReachedMax),
-    @required Result failure(),
-  }) {
-    assert(initial != null);
-    assert(success != null);
-    assert(failure != null);
-    return success(posts, hasReachedMax);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result initial(),
-    Result success(List<Post> posts, bool hasReachedMax),
-    Result failure(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (success != null) {
-      return success(posts, hasReachedMax);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result initial(HomeStateInitial value),
-    @required Result success(HomeStateSuccess value),
-    @required Result failure(HomeStateFailure value),
-  }) {
-    assert(initial != null);
-    assert(success != null);
-    assert(failure != null);
-    return success(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result initial(HomeStateInitial value),
-    Result success(HomeStateSuccess value),
-    Result failure(HomeStateFailure value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (success != null) {
-      return success(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class HomeStateSuccess implements HomeState {
-  const factory HomeStateSuccess(
-      {@required List<Post> posts, bool hasReachedMax}) = _$HomeStateSuccess;
-
-  List<Post> get posts;
-  bool get hasReachedMax;
-  $HomeStateSuccessCopyWith<HomeStateSuccess> get copyWith;
 }
 
 abstract class $HomeStateFailureCopyWith<$Res> {
@@ -360,12 +217,12 @@ class _$HomeStateFailure
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required Result success(List<Post> posts, bool hasReachedMax),
     @required Result failure(),
+    @required Result success(List<ApplicationWithIcon> applications),
   }) {
     assert(initial != null);
-    assert(success != null);
     assert(failure != null);
+    assert(success != null);
     return failure();
   }
 
@@ -373,8 +230,8 @@ class _$HomeStateFailure
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result success(List<Post> posts, bool hasReachedMax),
     Result failure(),
+    Result success(List<ApplicationWithIcon> applications),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -388,12 +245,12 @@ class _$HomeStateFailure
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(HomeStateInitial value),
-    @required Result success(HomeStateSuccess value),
     @required Result failure(HomeStateFailure value),
+    @required Result success(HomeStateSuccess value),
   }) {
     assert(initial != null);
-    assert(success != null);
     assert(failure != null);
+    assert(success != null);
     return failure(this);
   }
 
@@ -401,8 +258,8 @@ class _$HomeStateFailure
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(HomeStateInitial value),
-    Result success(HomeStateSuccess value),
     Result failure(HomeStateFailure value),
+    Result success(HomeStateSuccess value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -415,4 +272,136 @@ class _$HomeStateFailure
 
 abstract class HomeStateFailure implements HomeState {
   const factory HomeStateFailure() = _$HomeStateFailure;
+}
+
+abstract class $HomeStateSuccessCopyWith<$Res> {
+  factory $HomeStateSuccessCopyWith(
+          HomeStateSuccess value, $Res Function(HomeStateSuccess) then) =
+      _$HomeStateSuccessCopyWithImpl<$Res>;
+  $Res call({List<ApplicationWithIcon> applications});
+}
+
+class _$HomeStateSuccessCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
+    implements $HomeStateSuccessCopyWith<$Res> {
+  _$HomeStateSuccessCopyWithImpl(
+      HomeStateSuccess _value, $Res Function(HomeStateSuccess) _then)
+      : super(_value, (v) => _then(v as HomeStateSuccess));
+
+  @override
+  HomeStateSuccess get _value => super._value as HomeStateSuccess;
+
+  @override
+  $Res call({
+    Object applications = freezed,
+  }) {
+    return _then(HomeStateSuccess(
+      applications: applications == freezed
+          ? _value.applications
+          : applications as List<ApplicationWithIcon>,
+    ));
+  }
+}
+
+class _$HomeStateSuccess
+    with DiagnosticableTreeMixin
+    implements HomeStateSuccess {
+  const _$HomeStateSuccess({@required this.applications})
+      : assert(applications != null);
+
+  @override
+  final List<ApplicationWithIcon> applications;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'HomeState.success(applications: $applications)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'HomeState.success'))
+      ..add(DiagnosticsProperty('applications', applications));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is HomeStateSuccess &&
+            (identical(other.applications, applications) ||
+                const DeepCollectionEquality()
+                    .equals(other.applications, applications)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(applications);
+
+  @override
+  $HomeStateSuccessCopyWith<HomeStateSuccess> get copyWith =>
+      _$HomeStateSuccessCopyWithImpl<HomeStateSuccess>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result initial(),
+    @required Result failure(),
+    @required Result success(List<ApplicationWithIcon> applications),
+  }) {
+    assert(initial != null);
+    assert(failure != null);
+    assert(success != null);
+    return success(applications);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result initial(),
+    Result failure(),
+    Result success(List<ApplicationWithIcon> applications),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (success != null) {
+      return success(applications);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result initial(HomeStateInitial value),
+    @required Result failure(HomeStateFailure value),
+    @required Result success(HomeStateSuccess value),
+  }) {
+    assert(initial != null);
+    assert(failure != null);
+    assert(success != null);
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result initial(HomeStateInitial value),
+    Result failure(HomeStateFailure value),
+    Result success(HomeStateSuccess value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class HomeStateSuccess implements HomeState {
+  const factory HomeStateSuccess(
+      {@required List<ApplicationWithIcon> applications}) = _$HomeStateSuccess;
+
+  List<ApplicationWithIcon> get applications;
+  $HomeStateSuccessCopyWith<HomeStateSuccess> get copyWith;
 }

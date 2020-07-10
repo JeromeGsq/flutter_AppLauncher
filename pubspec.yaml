@@ -17,7 +17,9 @@ dependencies:
   http: ^0.12.1
   freezed_annotation: ^0.7.1
   json_annotation: ^3.0.1
-
+  device_apps: ^1.0.10
+  palette_generator: ^0.2.3
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

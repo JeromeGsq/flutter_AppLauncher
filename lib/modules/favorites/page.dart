@@ -1,19 +1,23 @@
-import 'package:AppLauncher/core/widgets/infinite_list.dart';
-import 'package:AppLauncher/home/composer.dart';
-import 'package:AppLauncher/home/state.dart';
-import 'package:AppLauncher/models/post.dart';
+import 'package:AppLauncher/modules/favorites/composer.dart';
+import 'package:AppLauncher/modules/favorites/state.dart';
+import 'package:AppLauncher/repositories/application_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:maestro/maestro.dart';
+import 'package:flutter/services.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+class FavoritesPage extends StatelessWidget {
+  const FavoritesPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Maestros(
       [
-        const Maestro(HomeState.initial()),
-        Maestro(HomeComposer()),
+        const Maestro(FavoritesState.initial()),
+        Maestro(
+          FavoritesComposer(
+            applicationProvider: context.read<ApplicationProvider>(),
+          ),
+        ),
       ],
       child: Scaffold(
         body: const _Page(),
@@ -27,7 +31,8 @@ class _Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeState currentState = context.listen<HomeState>();
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    final FavoritesState currentState = context.listen<FavoritesState>();
     return currentState.map(
       initial: (s) => const _Initial(),
       failure: (s) => const _Failure(),
@@ -41,33 +46,20 @@ class _Initial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
+    return Container();
   }
 }
 
 class _Success extends StatelessWidget {
   const _Success({Key key, this.state}) : super(key: key);
 
-  final HomeStateSuccess state;
+  final FavoritesStateSuccess state;
 
   @override
   Widget build(BuildContext context) {
-    if (state.posts.isEmpty) {
-      return Center(
-        child: Text('no posts'),
-      );
-    } else {
-      return InfiniteListView(
-        onFetch: () => context.read<HomeComposer>().fetch(),
-        itemCount: state.posts.length,
-        itemBuilder: (context, index) {
-          return Text(state.posts[index].title);
-        },
-        hasReachedEnd: state.hasReachedMax,
-      );
-    }
+    final appProvider = context.read<ApplicationProvider>();
+
+    return Container();
   }
 }
 
@@ -77,7 +69,7 @@ class _Failure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('failed to fetch posts'),
+      child: Text('No applications available'),
     );
   }
 }
